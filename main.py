@@ -72,15 +72,25 @@ class GenEnv():
             return env, policy
         return env
 
+class ParamObj:
+    def __init__(self):
+        self.name = "cheetah-run-td3"
+        self.id = "trial_run"
+        self.agent = "td3"
+        self.noise = "constant"
+        self.env = [["cheetah","run"]]
+        self.noise_scale = [0.3]
+        self.working_dir = "."
+        self.seed = [0]
+        self.sparse_reward = False
+        self.beta = [1]
 
 if __name__ == "__main__":
     # Read settings from yaml file
-    params = read_params_from_cmdline()
-    params = params._mutable_copy()
-    params.update(dict(params.conf))
-    dir_ = Path(params.working_dir)
-    name = f'{params.name}-{params.id}-{params.agent}-{params.noise}-{params.env}-{params.score}'
-    monitor_kwargs = {x: params[x] for x in ['eval_every', 'n_eval']}
+    params = ParamObj()
+    dir_ = "."
+    name = f'{params.name}-{params.id}-{params.agent}-{params.noise}-{params.env}'
+    monitor_kwargs = {"n_eval":5,"eval_every":10000}
     mpo = params.agent == 'mpo'
 
     # Seeding
