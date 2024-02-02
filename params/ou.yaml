@@ -1,0 +1,23 @@
+__import__: run/cluster.yaml
+
+# Experiment name
+optimization_procedure_name: &name ou
+
+fixed_params:
+  __import_promise__: run/defaults.yaml
+  name: *name
+
+  # Hyperparameters
+  noise: ou
+
+hyperparam_list:
+  - param: env
+    values: ['MountainCarContinuous-v0', 'door-v0',
+             ['pendulum', 'swingup'], ['cartpole', 'swingup_sparse'],
+             ['cartpole', 'balance_sparse'], ['ball_in_cup', 'catch'],
+             ['hopper', 'hop'], ['walker', 'run'],
+             ['reacher', 'hard'], ['cheetah', 'run']]
+  - param: agent
+    values: [mpo, sac]
+  - param: seed
+    values: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]

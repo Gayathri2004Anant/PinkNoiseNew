@@ -1,0 +1,52 @@
+# - Default hyperparameters -
+total_timesteps: 1_000_000
+
+# Evaluation rollouts
+eval_every: 10_000    # Every eval_every interactions, commence evaluation step
+n_eval: 5             # Number of evaluation episodes per evaluation step
+
+# Environment
+sparse_reward: false
+
+# Noise
+noise: wn           # One of: wn, ou, oracle, bandit, bo
+noise_scale: 0.3    # Noise process std
+
+# OU
+theta: 0.15
+ou_dt: 0.01
+ou_sc: false    # Whether or not to 'correct' the noise scale for OU noise
+
+# Colored noise
+colors: [0, 0.1, 0.2, 0.35, 0.5, 0.75, 1, 1.5, 2]
+score: info           # For bandit/bo
+oracle_rollouts: 0    # Different oracle method from ICN.
+beta: 1               # For 'noise: constant'
+
+# Oracle Colored Noise (ICN)
+oracle:
+  len_rollout: ep_1    # Number of interactions per (training) rollout: steps between testing
+  len_test: ep_3       # Number of interactions for each color in each testing iteration
+  use_max: false         # Use max instead of mean of test episode returns for beta selection
+  q_acc: 0               # Only accept returns which lie above acceptance quantile (default 0 = all)
+
+# Bandit
+memory: 50_000       # [timesteps]; window [rollouts] = memory // max_ep_len
+bandit:
+  method: ts         # ts = Thompson sampling, bucb = Bayes-UCB, a number c = UCB with q = mean + c*std
+  initial: 3         # Initial exploration: try each arm `initial` times at the start
+  sigma: 1           # Likelihood std (normalized reward)
+  q_acc: 0           # Acceptance quantile for outlier detection in external reward
+  dx: 0.125          # Distance between two arms (adjust according to list of colors)
+  ls: 0.2            # Lengthscale of RBF kernel (same dimensions as dx)
+bo:
+  # colors: [0, 2]     # Color range for Bayesian optimization
+  kernel: explore    # Either explore or rbf
+  sigma: 1           # Likelihood std (normalized reward)
+  ls: 0.2            # Lengthscale of RBF kernel (when explore kernel: all values in interval (0, 1])
+
+random_method: list
+schedule_method: linear
+
+# Additional config
+conf: []

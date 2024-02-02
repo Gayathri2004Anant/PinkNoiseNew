@@ -1,0 +1,22 @@
+__import__: run/cluster.yaml
+
+# Experiment name
+optimization_procedure_name: &name mujoco-maze
+
+fixed_params:
+  __import_promise__: run/defaults.yaml
+  name: *name
+
+  # Hyperparameters
+  ou_sc: true
+  beta: 1
+
+hyperparam_list:
+  - param: env
+    values: ['PointUMaze-v1', 'SwimmerUMaze-v1', 'AntUMaze-v1', 'Point4Rooms-v1', 'Swimmer4Rooms-v1', 'Ant4Rooms-v1']
+  - param: agent
+    values: [mpo, sac]
+  - param: seed
+    values: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+  - param: noise
+    values: [wn, ou, constant]

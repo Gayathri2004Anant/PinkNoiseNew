@@ -1,0 +1,24 @@
+__import__: run/cluster.yaml
+
+# Experiment name
+optimization_procedure_name: &name benchmark-td3-wn
+
+fixed_params:
+  __import_promise__: run/defaults.yaml
+  name: *name
+
+  # Hyperparameters
+  agent: td3
+  noise: wn
+
+hyperparam_list:
+  - param: env
+    values: ['MountainCarContinuous-v0', 'door-v0',
+             ['pendulum', 'swingup'], ['cartpole', 'swingup_sparse'],
+             ['cartpole', 'balance_sparse'], ['ball_in_cup', 'catch'],
+             ['hopper', 'hop'], ['walker', 'run'],
+             ['reacher', 'hard'], ['cheetah', 'run']]
+  - param: seed
+    values: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+  - param: noise_scale
+    values: [0.05, 0.1, 0.3, 0.5, 1]

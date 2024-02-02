@@ -1,0 +1,5 @@
+The default hyperparameters we use are collected in `defaults.yaml`.
+
+The particular parameters for individual experiments are provided in the remaining YAML files.
+For example, the two files `ou.yaml` and `ou-td3.yaml` contain the parameters for the Ornstein-Uhlenbeck noise experiments).
+All other experiment files are very similar to these two, the only difference being that they specify and vary different hyperparameters in the grid search. In particular, we used the same seeds (0-20) for all MPO and SAC experiments and the same noise scales and seeds (0-10) for the TD3 experiments.
